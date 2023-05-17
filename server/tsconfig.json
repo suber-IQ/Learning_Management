@@ -27,6 +27,7 @@
       "@user/*": ["src/features/userManagement/*"],
       "@course/*": ["src/features/courseManagement/*"],
       "@global/*": ["src/shared/globals/*"],
+      "@middleware/*": ["src/shared/middleware/*"],
       "@root/*": ["src/*"],
     }
   }

@@ -1,4 +1,4 @@
-import { Application, json, urlencoded, Response, Request, NextFunction } from 'express';
+import { Application, json, urlencoded, Response, Request } from 'express';
 import http from 'http';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -9,8 +9,9 @@ import HTTP_STATUS from 'http-status-codes';
 import Logger from 'bunyan';
 import apiStats from 'swagger-stats';
 import { config } from '@root/config';
+import errorMiddleware from '@middleware/error';
 import applicationRoutes from '@root/routes';
-import { CustomError, IErrorResponse } from '@global/helpers/error-handler';
+
 
 const upload = multer({ dest: 'uploads/'});
 
@@ -70,12 +71,8 @@ export class LearingManagement {
       res.status(HTTP_STATUS.NOT_FOUND).json({ message: `${req.originalUrl} not found` });
     });
 
-    app.use((error: IErrorResponse, _req: Request, res: Response, next: NextFunction) => {
-      if (error instanceof CustomError) {
-        res.status(error.statusCode).json(error.serializeErrors());
-      }
-      next();
-    });
+    app.use(errorMiddleware);
+
   }
 
   private async startServer(app: Application): Promise<void> {
