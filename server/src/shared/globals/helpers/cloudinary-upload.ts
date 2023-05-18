@@ -10,6 +10,7 @@ export function uploads(
     cloudinary.v2.uploader.upload(
       file,
       {
+        folder: 'learningmanagement',
         public_id,
         overwrite,
         invalidate

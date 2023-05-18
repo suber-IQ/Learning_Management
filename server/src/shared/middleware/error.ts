@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ValidationError } from 'joi';
 import ErrorHandler from '@global/helpers/error-handler';
+import multer from 'multer';
 interface ErrorResponse {
   success: boolean;
   message: string;
@@ -18,6 +19,14 @@ export default function errorHandler(
 ) {
   err.statusCode = err.statusCode || 500;
   err.message = err.message || 'Internal Server Error';
+
+  // Multer Error
+
+  if(err instanceof  multer.MulterError && err.code === 'LIMIT_FILE_SIZE'){
+    //  Handle the file size limit error
+     const message = 'File size exceeds the limit of 2MB';
+     err = new ErrorHandler(message,400);
+  }
 
    // Joi validation error
    if (err instanceof ValidationError) {

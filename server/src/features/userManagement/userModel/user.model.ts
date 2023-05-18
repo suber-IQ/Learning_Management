@@ -33,8 +33,10 @@ export const userSchema = new Schema<IUser>({
       type: String,
     },
     avatar: {
-      type: String,
+      public_id: String,
+      url: String
     },
+    age: Number
   },
   coursesEnrolled: [
     {

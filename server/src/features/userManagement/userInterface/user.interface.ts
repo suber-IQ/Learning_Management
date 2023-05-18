@@ -9,7 +9,7 @@ export enum UserRole {
 interface UserProfile {
     firstName?: string;
     lastName?: string;
-    avatar?: string;
+    avatar?: Avatar;
     age?: number;
     // Add additional profile fields as per your requirements
 }
@@ -26,6 +26,10 @@ interface UserActivity{
     action: string;
     timestamp: Date;
      // Add additional activity fields as per your requirements
+}
+interface Avatar {
+  public_id: string;
+  url: string;
 }
 
 export interface IUser extends Document {

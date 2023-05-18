@@ -1,15 +1,14 @@
 import {  NextFunction, Request, Response } from 'express';
-import { v2 as cloudinary} from 'cloudinary';
 import HTTP_STATUS from 'http-status-codes';
-import { promisify } from 'util';
 import catchAsyncHandler from '@root/shared/middleware/catchAsyncError';
 import { registerSchema } from '@user/userSchemes/register.schema';
-import sendToken from '@root/shared/utils/jwt-token';
+import sendToken from '@root/shared/utils/jsonwebtoken/jwt-token';
 import { joiValidation } from '@global/decorators/joi-validation.decorators';
 import ErrorHandler from '@global/helpers/error-handler';
 import UserModel from '@user/userModel/user.model';
+import { uploads } from '@global/helpers/cloudinary-upload';
+import { deleteUploadedFile } from '@global/helpers/delete-upload-file';
 
-const cloudinaryUpload = promisify(cloudinary.uploader.upload);
 
 export class Register {
   @joiValidation(registerSchema)
@@ -21,12 +20,18 @@ export class Register {
          return next(new ErrorHandler('invalid credentials',HTTP_STATUS.UNAUTHORIZED));
        }
 
-      //  upload avatar to cloudinary (if Provided)
-      let avatarUrl: string | undefined;
-      if(req.file){
-        const result = await cloudinaryUpload(req.file.buffer.toString('base64'));
-        avatarUrl = result?.secure_url;
+       let profileImageUrl: string | undefined;
+       let profileImageId: string | undefined;
+
+       if (req.file) {
+        const uploadResult = await uploads(req.file.path);
+        profileImageUrl = uploadResult?.secure_url;
+        profileImageId = uploadResult?.public_id;
+
+        // Delete the uploaded file after successfull upload
+        deleteUploadedFile(req.file?.path);
       }
+
 
       // create new user object
       const user = new UserModel({
@@ -36,7 +41,10 @@ export class Register {
         profile: {
           firstName,
           lastName,
-          avatar: avatarUrl,
+          avatar: {
+            public_id: profileImageId,
+            url: profileImageUrl
+          },
         }
       });
 

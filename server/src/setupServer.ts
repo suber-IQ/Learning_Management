@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import multer from 'multer';
 import hpp from 'hpp';
+import { storage } from '@global/helpers/delete-upload-file';
 import compression from 'compression';
 import HTTP_STATUS from 'http-status-codes';
 import Logger from 'bunyan';
@@ -13,7 +14,12 @@ import errorMiddleware from '@middleware/error';
 import applicationRoutes from '@root/routes';
 
 
-const upload = multer({ dest: 'uploads/'});
+const upload = multer({
+   storage,
+   limits: {
+    fileSize: 2 * 1024 * 1024,  // 2mb limit
+   }
+ });
 
 const log: Logger = config.createLogger('server');
 
