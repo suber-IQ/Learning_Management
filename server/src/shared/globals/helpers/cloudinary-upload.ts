@@ -1,4 +1,9 @@
-import cloudinary, { UploadApiResponse, UploadApiErrorResponse } from 'cloudinary';
+import { config } from '@root/config';
+import Logger from 'bunyan';
+import cloudinary, { UploadApiResponse, UploadApiErrorResponse, DeleteApiResponse } from 'cloudinary';
+
+const log: Logger = config.createLogger('cloudinaryUpload');
+
 
 export function uploads(
   file: string,
@@ -46,3 +51,19 @@ export function videoUpload(
     );
   });
 }
+
+
+
+
+
+
+export async function destroy(public_id: string): Promise<DeleteApiResponse | undefined> {
+  try {
+    const result = await cloudinary.v2.uploader.destroy(public_id);
+    return result as DeleteApiResponse;
+  } catch (error) {
+    log.error('An error occurred during image deletion:', error);
+    return undefined;
+  }
+}
+

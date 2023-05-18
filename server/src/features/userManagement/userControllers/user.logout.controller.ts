@@ -1,6 +1,6 @@
 import {  Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
-import catchAsyncHandler from '@root/shared/middleware/catchAsyncError';
+import catchAsyncHandler from '@middleware/catchAsyncError.middleware';
 
 
 export class Logout {

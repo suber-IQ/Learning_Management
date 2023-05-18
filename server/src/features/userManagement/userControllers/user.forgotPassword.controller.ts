@@ -1,6 +1,6 @@
 import {  NextFunction, Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
-import catchAsyncHandler from '@root/shared/middleware/catchAsyncError';
+import catchAsyncHandler from '@middleware/catchAsyncError.middleware';
 import { joiValidation } from '@global/decorators/joi-validation.decorators';
 import { forgotPasswordSchema } from '@user/userSchemes/forgotPassword.schema';
 import { IUser } from '@user/userInterface/user.interface';

@@ -1,6 +1,6 @@
 import {  NextFunction, Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
-import catchAsyncHandler from '@root/shared/middleware/catchAsyncError';
+import catchAsyncHandler from '@middleware/catchAsyncError.middleware';
 import { registerSchema } from '@user/userSchemes/register.schema';
 import sendToken from '@root/shared/utils/jsonwebtoken/jwt-token';
 import { joiValidation } from '@global/decorators/joi-validation.decorators';

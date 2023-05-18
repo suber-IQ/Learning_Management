@@ -1,6 +1,6 @@
 import {  NextFunction, Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
-import catchAsyncHandler from '@root/shared/middleware/catchAsyncError';
+import catchAsyncHandler from '@middleware/catchAsyncError.middleware';
 import sendToken from '@root/shared/utils/jsonwebtoken/jwt-token';
 import { joiValidation } from '@global/decorators/joi-validation.decorators';
 import { loginSchema } from '@user/userSchemes/login.schema';
@@ -18,7 +18,7 @@ export class Login {
       // Check if the user exists with the provided username or email
       const user: IUser | null = await UserModel.findOne({
         $or: [{username: usernameOrEmail}, { email: usernameOrEmail}]
-      });
+      }).select('+password');
        if(!user){
           return next(new ErrorHandler('Invalid credentials',HTTP_STATUS.UNAUTHORIZED));
        }

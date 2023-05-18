@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import { Schema, Document } from 'mongoose';
 
 export enum UserRole {
@@ -49,3 +50,10 @@ export interface IUser extends Document {
     getResetPasswordToken(): string;
     // Add additional fields as per your requirements
   }
+
+
+  //Auth Request middleware use
+  export interface AuthRequest extends Request {
+    user?: IUser;
+  }
+

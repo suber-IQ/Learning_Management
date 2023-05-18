@@ -1,6 +1,7 @@
 import { Application, json, urlencoded, Response, Request } from 'express';
 import http from 'http';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import multer from 'multer';
 import hpp from 'hpp';
@@ -10,7 +11,7 @@ import HTTP_STATUS from 'http-status-codes';
 import Logger from 'bunyan';
 import apiStats from 'swagger-stats';
 import { config } from '@root/config';
-import errorMiddleware from '@middleware/error';
+import errorMiddleware from '@middleware/error.middleware';
 import applicationRoutes from '@root/routes';
 
 
@@ -51,6 +52,7 @@ export class LearingManagement {
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
       })
     );
+    app.use(cookieParser());
   }
 
   private standardMiddleware(app: Application): void {
