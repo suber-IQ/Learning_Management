@@ -1,12 +1,12 @@
 import {  Schema,model } from 'mongoose';
-import { Course, CourseLevel } from '../courseInterface/courseInterface';
+import { ICourse, CourseLevel } from '../courseInterface/courseInterface';
 import { UserRole } from '../../userManagement/userInterface/user.interface';
-import { AssignmentSchema, CodeSchema, NoteSchema, QuizSchema, SlideSchema } from './other.Schema';
+import { AssignmentSchema, CodeSchema, NoteSchema, QuizSchema, SlideSchema, lessonSchema } from './other.model';
 
 
 
 
-const courseSchema = new Schema<Course>({
+const courseSchema = new Schema<ICourse>({
   title: {
     type: String,
     required: true,
@@ -33,25 +33,9 @@ const courseSchema = new Schema<Course>({
     type: Number,
     default: 0
   },
-  lessons: [
-    {
-      title: {
-        type: String,
-        required: true,
-      },
-      duration: {
-        type: Number,
-        required: true
-      },
-      content: {
-        type: String,
-        required: true
-      }
-    }
-  ],
+  lessons: [lessonSchema],
   numberOflesson: {
     type: Number,
-    required: true
   },
    subscription: {
     id: String,
@@ -84,8 +68,18 @@ const courseSchema = new Schema<Course>({
    codes: [CodeSchema],
    quizzes: [QuizSchema],
    slides: [SlideSchema],
-})
+   coupon: {
+    code: {
+      type: String,
+    },
+    discount: {
+      type: Number,
+      min: 0,
+      max: 100
+    }
+   }
+});
 
-const CourseModel = model<Course>('Course',courseSchema);
+const CourseModel = model<ICourse>('Course',courseSchema);
 
 export default CourseModel;

@@ -10,10 +10,12 @@ export enum CourseLevel {
 
 
 
-interface Lesson{
+export interface Lesson{
+    _id: string;
     title: string;
+    description: string;
     duration: number;
-    video: {
+    content: {
         public_id: string;
         url: string;
     };
@@ -65,7 +67,13 @@ interface Slide {
     title: string;
     content: string;
 }
-export interface Course extends Document {
+
+interface Coupon {
+  code: string;
+  discount: number;
+}
+
+export interface ICourse extends Document {
     title: string;
     description: string;
     level: CourseLevel;
@@ -80,11 +88,12 @@ export interface Course extends Document {
         public_id: string;
         url: string;
     };
-    createdBy: String;
+    createdBy: string;
     createdAt: Date;
     assignments: Assignment[];
     notes: Note[];
     codes: Code[];
     quizzes: Quiz[];
     slides: Slide[];
+    coupon?: Coupon; // Optional coupon property
 }

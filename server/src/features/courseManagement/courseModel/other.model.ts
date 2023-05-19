@@ -1,3 +1,4 @@
+import { Lesson } from '@course/courseInterface/courseInterface';
 import { Schema } from 'mongoose';
 
 const AssignmentSchema = new Schema({
@@ -53,7 +54,19 @@ const SlideSchema = new Schema({
   // Add additional fields specific to slides
 });
 
+const lessonSchema = new Schema<Lesson>({
+  _id: Schema.Types.ObjectId,
+  title: String,
+  description: String,
+  duration: Number,
+  content: {
+    public_id: String,
+    url: String,
+  },
+});
+
 export {
+  lessonSchema,
   AssignmentSchema,
   NoteSchema,
   CodeSchema,

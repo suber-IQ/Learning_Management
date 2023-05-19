@@ -62,9 +62,9 @@ export const userSchema = new Schema<IUser>({
   ],
   activities: [
     {
-      action: {
-        type: String,
-      },
+      userId: String,
+      activityType: String,
+      activityData: Schema.Types.Mixed,
       timestamp: {
         type: Date,
         default: Date.now,

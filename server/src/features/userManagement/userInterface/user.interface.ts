@@ -23,11 +23,15 @@ interface CourseEnrollment{
     // Add additional enrollment fields as per your requirements
 }
 
-interface UserActivity{
-    action: string;
-    timestamp: Date;
+interface IUserActivity extends Document{
+  userId: string;
+  activityType: string;
+  activityData: object;
+  timestamp: Date;
      // Add additional activity fields as per your requirements
 }
+
+
 interface Avatar {
   public_id: string;
   url: string;
@@ -40,7 +44,7 @@ export interface IUser extends Document {
     role: UserRole;
     profile?: UserProfile;
     coursesEnrolled: CourseEnrollment[];
-    activities: UserActivity[];
+    activities: IUserActivity[];
     createdAt: Date;
     resetPasswordToken?: string;
     resetPasswordExpire?: Date;

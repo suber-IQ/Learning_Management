@@ -38,6 +38,7 @@ export function videoUpload(
     cloudinary.v2.uploader.upload(
       file,
       {
+        folder: 'learningmanagement',
         resource_type: 'video',
         chunk_size: 50000,
         public_id,
@@ -57,9 +58,10 @@ export function videoUpload(
 
 
 
-export async function destroy(public_id: string): Promise<DeleteApiResponse | undefined> {
+export async function destroy(public_id: string, resource_type?: string): Promise<DeleteApiResponse | undefined> {
   try {
-    const result = await cloudinary.v2.uploader.destroy(public_id);
+    const options = resource_type ? { resource_type } : undefined;
+    const result = await cloudinary.v2.uploader.destroy(public_id,options);
     return result as DeleteApiResponse;
   } catch (error) {
     log.error('An error occurred during image deletion:', error);
