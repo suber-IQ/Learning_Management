@@ -1,3 +1,4 @@
+import { UserRole } from '@user/userInterface/user.interface';
 import Joi, { ObjectSchema} from 'joi';
 
 const updateProfileSchema: ObjectSchema = Joi.object().keys({
@@ -27,6 +28,11 @@ const updateProfileSchema: ObjectSchema = Joi.object().keys({
     'number.integer': 'Age must be an integer',
     'number.min': 'Age must be a positive number',
   }),
+  role: Joi.string().required().valid(UserRole.Teacher,UserRole.User).messages({
+    'any.required': 'Role is required.',
+    'string.empty': 'Role cannot be empty.',
+    'any.only': 'Role must be either "teacher" or "user".'
+  })
 
 });
 

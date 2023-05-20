@@ -8,6 +8,12 @@ const createCourseSchema: ObjectSchema = Joi.object().keys({
     'string.max': 'Title can not exceed 80 characters',
     'string.empty': 'Title is a required field'
   }),
+  instructer: Joi.string().required().min(4).max(20).messages({
+    'string.base': 'Title must be of type string',
+    'string.min': 'Title must be at least 4 characters',
+    'string.max': 'Title can not exceed 20 characters',
+    'string.empty': 'Title is a required field'
+  }),
   description: Joi.string().required().min(20).messages({
     'string.base': 'Description must be of type string',
     'string.min': 'Description must be at least 20 characters',

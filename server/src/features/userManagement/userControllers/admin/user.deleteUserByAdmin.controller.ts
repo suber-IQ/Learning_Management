@@ -7,7 +7,7 @@ import { destroy } from '@global/helpers/cloudinary-upload';
 
 // Admin user Activity
 export class DeleteUser  {
-  public static read = catchAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public static delete = catchAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
      const user = await UserModel.findById(req.params.id);
      if(!user){
       return next(new ErrorHandler('User not found', HTTP_STATUS.NOT_FOUND));

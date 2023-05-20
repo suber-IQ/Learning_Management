@@ -1,24 +1,26 @@
 import HTTP_STATUS from 'http-status-codes';
-import {   Request, Response } from 'express';
+import {   Response } from 'express';
 import catchAsyncHandler from '@middleware/catchAsyncError.middleware';
 import { joiValidation } from '@global/decorators/joi-validation.decorators';
 import { createCourseSchema } from '@course/courseSchemes/createCourse.schema';
 import { uploads } from '@global/helpers/cloudinary-upload';
 import { deleteUploadedFile } from '@global/helpers/delete-upload-file';
 import CourseModel from '@course/courseModel/course.model';
+import mongoose from 'mongoose';
+import { AuthRequest } from '@user/userInterface/user.interface';
 
 // Admin user Activity
 export class CreateCourse  {
   @joiValidation(createCourseSchema)
-  public static create = catchAsyncHandler(async (req: Request, res: Response): Promise<void> => {
+  public static create = catchAsyncHandler(async (req: AuthRequest, res: Response): Promise<void> => {
     const {
       title,
       description,
       level,
       price,
       category,
-      createdBy,
       code,
+      instructer,
       discount,
     } = req.body;
 
@@ -41,19 +43,20 @@ export class CreateCourse  {
    await CourseModel.create({
     title,
     description,
+    instructer,
     level,
     price,
     category,
+    createdBy: new mongoose.Types.ObjectId(req.user?.id),
     poster: {
       public_id: coursePosterId,
       url: coursePosterUrl,
     },
-    createdBy,
     createdAt: new Date(),
     coupon: {
       code,
       discount
-    }
+    },
    });
 
    res.status(HTTP_STATUS.CREATED).json({

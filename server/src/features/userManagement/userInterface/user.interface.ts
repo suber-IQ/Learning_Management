@@ -2,9 +2,10 @@ import { Request } from 'express';
 import { Schema, Document } from 'mongoose';
 
 export enum UserRole {
-    User = 'user',
-    Teacher = 'teacher',
-    Admin = 'admin'
+     User = 'user',
+     Student ='student',
+     Teacher = 'teacher',
+     Admin = 'admin'
 }
 
 interface UserProfile {

@@ -1,28 +1,37 @@
-import { Response } from 'express';
+import { NextFunction, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
 import catchAsyncHandler from '@middleware/catchAsyncError.middleware';
-import { AuthRequest, IUser } from '@user/userInterface/user.interface';
+import { AuthRequest, IUser, UserRole } from '@user/userInterface/user.interface';
 import UserModel from '@user/userModel/user.model';
 import { joiValidation } from '@global/decorators/joi-validation.decorators';
 import { updateProfileSchema } from '@user/userSchemes/updateProfile.schema';
 import { destroy, uploads } from '@global/helpers/cloudinary-upload';
 import { deleteUploadedFile } from '@global/helpers/delete-upload-file';
+import ErrorHandler from '@global/helpers/error-handler';
 
 
 export class UpdateUserProfile {
   @joiValidation(updateProfileSchema)
-  public static update = catchAsyncHandler(async (req: AuthRequest, res: Response): Promise<void> => {
-    const { username,email,firstName,lastName, age } = req.body;
+  public static update = catchAsyncHandler(async (req: AuthRequest, res: Response,next: NextFunction): Promise<void> => {
+    const { username,email,firstName,lastName, age,role } = req.body;
+
+    if(role !== UserRole.User && role !== UserRole.Teacher){
+      return next(new ErrorHandler('Role must be either "teacher" or "user".',HTTP_STATUS.FORBIDDEN));
+    }
+
 
     const newUserData: Partial<IUser> = {
       username,
       email,
+      role,
       profile: {
         firstName,
         lastName,
         age
       }
     };
+
+
 
     // we will add cloudinary
    if(req.file){

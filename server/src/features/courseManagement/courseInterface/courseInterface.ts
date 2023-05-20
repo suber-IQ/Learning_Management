@@ -1,5 +1,5 @@
-import { UserRole } from './../../userManagement/userInterface/user.interface';
-import { Document } from 'mongoose';
+import {  IUser, UserRole } from './../../userManagement/userInterface/user.interface';
+import { Document, Types } from 'mongoose';
 
 
 export enum CourseLevel {
@@ -21,16 +21,18 @@ export interface Lesson{
     };
 }
 
-interface Subscription {
+export interface Subscription {
     id: string;
     status: string;
 }
 
-interface Assignment {
+export interface Assignment {
+    _id: string;
     title: string;
     description: string;
     deadline: Date;
-    submissions: AssignmentSubmission[]
+    submissions?: AssignmentSubmission[]
+    totalOfStudentSubmission?: number;
 
 }
 
@@ -39,13 +41,13 @@ interface Note {
     content: string;
 }
 
-interface Code {
+export interface Code {
     title: string;
     language: string;
     code: string;
 }
 
-interface Quiz {
+export interface Quiz {
     title: string;
     questions: Question[]
 }
@@ -55,12 +57,16 @@ interface Question {
     correctOption: number;
 }
 
-interface AssignmentSubmission{
-    student: string;
+export interface AssignmentSubmission{
+    studentId: string;
+    studentUsername: string;
     submissionDate: Date;
-    file: string; // file path or attachment reference
-    comments: string;
-    grade: number;
+    file: {
+      public_id: string;
+      url: string;
+    }; // file path or attachment reference
+    comments?: string;
+    grade?: number;
 }
 
 interface Slide {
@@ -75,6 +81,7 @@ interface Coupon {
 
 export interface ICourse extends Document {
     title: string;
+    instructer: string;
     description: string;
     level: CourseLevel;
     price: number;
@@ -88,7 +95,7 @@ export interface ICourse extends Document {
         public_id: string;
         url: string;
     };
-    createdBy: string;
+    createdBy: Types.ObjectId | IUser;
     createdAt: Date;
     assignments: Assignment[];
     notes: Note[];

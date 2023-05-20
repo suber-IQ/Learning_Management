@@ -39,6 +39,7 @@ class UserRoutes {
     this.router.delete('/user/me',AuthMiddleware.isAuthenticateUser,DeleteMeProfile.delete);
     this.router.put('/user/password/update',AuthMiddleware.isAuthenticateUser,UpdateUserPassword.update);
     this.router.put('/user/profile/update',AuthMiddleware.isAuthenticateUser,UpdateUserProfile.update);
+    // this.router.put('/user/role/:id',AuthMiddleware.isAuthenticateUser,UpdateUserRole.update);
 
     // put user Activity
     this.router.put('/user/activity',AuthMiddleware.isAuthenticateUser,ActivityUser.create);
@@ -49,7 +50,8 @@ class UserRoutes {
     // get user Activity
     this.router.get('/admin/user/activity',AuthMiddleware.isAuthenticateUser, AuthMiddleware.authorizeRoles(UserRole.Admin),GetUserActivity.read);
     this.router.get('/admin/users',AuthMiddleware.isAuthenticateUser, AuthMiddleware.authorizeRoles(UserRole.Admin),GetAllUser.read);
-    this.router.route('/admin/user/:id').all(AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Admin)).put(UpdateUserRole.update).delete(DeleteUser.read);
+    this.router.route('/admin/user/:id').all(AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Admin)).put(UpdateUserRole.update).delete(DeleteUser.delete);
+    // this.router.delete('/admin/user/:id',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Admin),DeleteUser.delete);
 
   }
 

@@ -1,11 +1,13 @@
 import express, { Router } from 'express';
-import { CreateCourse } from '@course/courseControllers/admin/course.create.controller';
+import { CreateCourse } from '@course/courseControllers/teacher/course/course.create.controller';
 import AuthMiddleware from '@middleware/auth.middleware';
 
 import { UserRole } from '@user/userInterface/user.interface';
-import { AddLesson } from '@course/courseControllers/admin/course.addLesson.controller';
-import { DeleteCourse } from '@course/courseControllers/admin/course.deleteCourse.controller';
-import { DeleteLesson } from '@course/courseControllers/admin/course.deleteLesson.controller';
+import { AddLesson } from '@course/courseControllers/teacher/course/course.addLesson.controller';
+import { DeleteCourse } from '@course/courseControllers/teacher/course/course.deleteCourse.controller';
+import { DeleteLesson } from '@course/courseControllers/teacher/course/course.deleteLesson.controller';
+import { SubmitAssignment } from '@course/courseControllers/student/student.submit.submission.controller';
+import { CreateAssignment } from '@course/courseControllers/teacher/document/course.createAssignment.controller';
 
 
 class CourseRoutes {
@@ -16,18 +18,23 @@ class CourseRoutes {
   }
 
   public routes(): Router {
-    this.adminRoutes();
+    this.teacherRoutes();
+    this.Student();
     return this.router;
   }
 
+ private Student(): void {
+  this.router.put('/course/assignment/submit/:courseId/:assignmentId',AuthMiddleware.isAuthenticateUser, SubmitAssignment.update);
+ }
 
-
-  private adminRoutes(): void {
+  private teacherRoutes(): void {
     // Admin
-    this.router.post('/course/create',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Admin), CreateCourse.create);
-    this.router.post('/course/lesson/:id',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Admin), AddLesson.create);
-    this.router.delete('/course/:id',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Admin), DeleteCourse.delete);
-    this.router.delete('/course/lesson/:courseId/:lessonId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Admin), DeleteLesson.delete);
+    this.router.post('/course/create',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), CreateCourse.create);
+    this.router.post('/course/lesson/:id',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), AddLesson.create);
+    this.router.delete('/course/:id',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), DeleteCourse.delete);
+    this.router.delete('/course/lesson/:courseId/:lessonId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), DeleteLesson.delete);
+    this.router.delete('/course/create/assignment/:courseId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), CreateAssignment.create);
+
 
   }
 

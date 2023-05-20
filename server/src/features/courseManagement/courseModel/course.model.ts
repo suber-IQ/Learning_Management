@@ -1,4 +1,4 @@
-import {  Schema,model } from 'mongoose';
+import  mongoose, {  Schema,model } from 'mongoose';
 import { ICourse, CourseLevel } from '../courseInterface/courseInterface';
 import { UserRole } from '../../userManagement/userInterface/user.interface';
 import { AssignmentSchema, CodeSchema, NoteSchema, QuizSchema, SlideSchema, lessonSchema } from './other.model';
@@ -10,6 +10,10 @@ const courseSchema = new Schema<ICourse>({
   title: {
     type: String,
     required: true,
+  },
+  instructer: {
+    type: String,
+    required: true
   },
   description: {
     type: String,
@@ -56,7 +60,8 @@ const courseSchema = new Schema<ICourse>({
     }
    },
    createdBy: {
-     type: String,
+     type: mongoose.Schema.Types.ObjectId,
+     ref: 'User',
      required: true
    },
    createdAt: {
@@ -77,7 +82,8 @@ const courseSchema = new Schema<ICourse>({
       min: 0,
       max: 100
     }
-   }
+   },
+
 });
 
 const CourseModel = model<ICourse>('Course',courseSchema);

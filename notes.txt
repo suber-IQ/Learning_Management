@@ -54,3 +54,277 @@ Single Sign-on (SSO)
 
 
 learning management into user Schema include features firstName,lastName,email,password,role ,profileImage,createdAt, updatedAt,lastlogin,isActive ,reset password token,reset password expires user activity tracking, playlist,subscription
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// assignmentController.ts
+import { Request, Response } from 'express';
+import { Assignment } from './assignmentSchema';
+
+export class AssignmentController {
+  public createAssignment(req: Request, res: Response): void {
+    // Teacher role-specific logic to create an assignment
+    // ...
+  }
+
+  public updateAssignment(req: Request, res: Response): void {
+    // Teacher role-specific logic to update an assignment
+    // ...
+  }
+
+  public deleteAssignment(req: Request, res: Response): void {
+    // Teacher role-specific logic to delete an assignment
+    // ...
+  }
+}
+
+// noteController.ts
+import { Request, Response } from 'express';
+import { Note } from './noteSchema';
+
+export class NoteController {
+  public createNote(req: Request, res: Response): void {
+    // Teacher role-specific logic to create a note
+    // ...
+  }
+
+  public updateNote(req: Request, res: Response): void {
+    // Teacher role-specific logic to update a note
+    // ...
+  }
+
+  public deleteNote(req: Request, res: Response): void {
+    // Teacher role-specific logic to delete a note
+    // ...
+  }
+}
+
+// codeController.ts
+import { Request, Response } from 'express';
+import { Code } from './codeSchema';
+
+export class CodeController {
+  public createCodeSnippet(req: Request, res: Response): void {
+    // Teacher role-specific logic to create a code snippet
+    // ...
+  }
+
+  public updateCodeSnippet(req: Request, res: Response): void {
+    // Teacher role-specific logic to update a code snippet
+    // ...
+  }
+
+  public deleteCodeSnippet(req: Request, res: Response): void {
+    // Teacher role-specific logic to delete a code snippet
+    // ...
+  }
+}
+
+// quizController.ts
+import { Request, Response } from 'express';
+import { Quiz } from './quizSchema';
+
+export class QuizController {
+  public createQuiz(req: Request, res: Response): void {
+    // Teacher role-specific logic to create a quiz
+    // ...
+  }
+
+  public updateQuiz(req: Request, res: Response): void {
+    // Teacher role-specific logic to update a quiz
+    // ...
+  }
+
+  public deleteQuiz(req: Request, res: Response): void {
+    // Teacher role-specific logic to delete a quiz
+    // ...
+  }
+}
+
+// slideController.ts
+import { Request, Response } from 'express';
+import { Slide } from './slideSchema';
+
+export class SlideController {
+  public createSlide(req: Request, res: Response): void {
+    // Teacher role-specific logic to create a slide
+    // ...
+  }
+
+  public updateSlide(req: Request, res: Response): void {
+    // Teacher role-specific logic to update a slide
+    // ...
+  }
+
+  public deleteSlide(req: Request, res: Response): void {
+    // Teacher role-specific logic to delete a slide
+    // ...
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// assignmentController.ts
+import { Request, Response } from 'express';
+import { Assignment } from './assignmentSchema';
+
+export class AssignmentController {
+  // ...
+
+  public getAssignmentsByUser(req: Request, res: Response): void {
+    const { user } = req; // Assuming the authenticated user is available in the request
+
+    if (user.role === 'teacher') {
+      // Teacher role-specific logic to get assignments created by the teacher
+      // ...
+    } else if (user.role === 'user') {
+      // User role-specific logic to get assignments submitted by the user
+      // ...
+    } else {
+      // Handle other roles or error cases
+      // ...
+    }
+  }
+}
+
+// noteController.ts
+import { Request, Response } from 'express';
+import { Note } from './noteSchema';
+
+export class NoteController {
+  // ...
+
+  public getNotesByUser(req: Request, res: Response): void {
+    const { user } = req; // Assuming the authenticated user is available in the request
+
+    if (user.role === 'teacher') {
+      // Teacher role-specific logic to get notes created by the teacher
+      // ...
+    } else if (user.role === 'user') {
+      // User role-specific logic to get notes related to the user
+      // ...
+    } else {
+      // Handle other roles or error cases
+      // ...
+    }
+  }
+}
+
+// codeController.ts
+import { Request, Response } from 'express';
+import { Code } from './codeSchema';
+
+export class CodeController {
+  // ...
+
+  public getCodeSnippetsByUser(req: Request, res: Response): void {
+    const { user } = req; // Assuming the authenticated user is available in the request
+
+    if (user.role === 'teacher') {
+      // Teacher role-specific logic to get code snippets created by the teacher
+      // ...
+    } else if (user.role === 'user') {
+      // User role-specific logic to get code snippets related to the user
+      // ...
+    } else {
+      // Handle other roles or error cases
+      // ...
+    }
+  }
+}
+
+// quizController.ts
+import { Request, Response } from 'express';
+import { Quiz } from './quizSchema';
+
+export class QuizController {
+  // ...
+
+  public getQuizzesByUser(req: Request, res: Response): void {
+    const { user } = req; // Assuming the authenticated user is available in the request
+
+    if (user.role === 'teacher') {
+      // Teacher role-specific logic to get quizzes created by the teacher
+      // ...
+    } else if (user.role === 'user') {
+      // User role-specific logic to get quizzes related to the user
+      // ...
+    } else {
+      // Handle other roles or error cases
+      // ...
+    }
+  }
+}
+
+// slideController.ts
+import { Request, Response } from 'express';
+import { Slide } from './slideSchema';
+
+export class SlideController {
+  // ...
+
+  public getSlidesByUser(req: Request, res: Response): void {
+    const { user } = req; // Assuming the authenticated user is available in the request
+
+    if (user.role === 'teacher') {
+      // Teacher role-specific logic to get slides created by the teacher
+      // ...
+    } else if (user.role === 'user') {
+      // User role-specific logic to get slides related to the user
+      // ...
+    } else {
+      // Handle other roles or error cases
+      // ...
+    }
+  }
+}

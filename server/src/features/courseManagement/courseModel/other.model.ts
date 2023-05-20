@@ -1,21 +1,27 @@
-import { Lesson } from '@course/courseInterface/courseInterface';
+import { Assignment, Lesson } from '@course/courseInterface/courseInterface';
 import { Schema } from 'mongoose';
 
-const AssignmentSchema = new Schema({
-  title: {
-    type: String,
-    required: [true, 'Please enter the assignment title'],
-  },
-  description: {
-    type: String,
-    required: [true, 'Please enter the assignment description'],
-  },
+const AssignmentSchema = new Schema<Assignment>({
+  _id: Schema.Types.ObjectId,
+  title: String,
+  description: String,
   deadline: Date,
+  totalOfStudentSubmission: {
+    type: Number,
+    default: 0
+  },
   submissions: [
     {
-        student: String,
+       studentId: {
+          type: Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        studentUsername: String,
         submissionDate: Date,
-        file: String, // file path or attachment reference
+        file: {
+          public_id: String,
+          url: String,
+        }, // file path or attachment reference
         comments: String,
         grade: Number
     }
