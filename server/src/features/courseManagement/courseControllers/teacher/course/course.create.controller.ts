@@ -2,7 +2,7 @@ import HTTP_STATUS from 'http-status-codes';
 import {   Response } from 'express';
 import catchAsyncHandler from '@middleware/catchAsyncError.middleware';
 import { joiValidation } from '@global/decorators/joi-validation.decorators';
-import { createCourseSchema } from '@course/courseSchemes/createCourse.schema';
+import { createCourseSchema } from '@course/courseSchemes/course/createCourse.schema';
 import { uploads } from '@global/helpers/cloudinary-upload';
 import { deleteUploadedFile } from '@global/helpers/delete-upload-file';
 import CourseModel from '@course/courseModel/course.model';

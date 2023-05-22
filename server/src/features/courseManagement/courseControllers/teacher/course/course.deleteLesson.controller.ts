@@ -5,7 +5,7 @@ import { destroy } from '@global/helpers/cloudinary-upload';
 import CourseModel from '@course/courseModel/course.model';
 import ErrorHandler from '@global/helpers/error-handler';
 import { joiValidation } from '@global/decorators/joi-validation.decorators';
-import { deleteLessonSchema } from '@course/courseSchemes/deleteLesson.schema';
+import { deleteLessonSchema } from '@course/courseSchemes/course/deleteLesson.schema';
 
 // Admin user Activity
 export class DeleteLesson  {

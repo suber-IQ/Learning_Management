@@ -30,8 +30,18 @@ const AssignmentSchema = new Schema<Assignment>({
 });
 
 const NoteSchema = new Schema({
-  title: String,
-  content: String
+  _id: Schema.Types.ObjectId,
+   title: String,
+  content: String,
+  createdDate: Date,
+  modifiedDate: Date,
+  tags: [String],
+  attachments: [
+    {
+      file_public_id: String,
+      file_url: String,
+    },
+  ],
   // Add additional fields specific to notes
 });
 
@@ -69,6 +79,11 @@ const lessonSchema = new Schema<Lesson>({
     public_id: String,
     url: String,
   },
+  assignments: [AssignmentSchema],
+  notes: [NoteSchema],
+  codes: [CodeSchema],
+  quizzes: [QuizSchema],
+  slides: [SlideSchema],
 });
 
 export {

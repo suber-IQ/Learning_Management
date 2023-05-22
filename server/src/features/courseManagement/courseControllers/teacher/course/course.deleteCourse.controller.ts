@@ -5,13 +5,17 @@ import { destroy } from '@global/helpers/cloudinary-upload';
 import CourseModel from '@course/courseModel/course.model';
 import ErrorHandler from '@global/helpers/error-handler';
 import { ICourse } from '@course/courseInterface/courseInterface';
+import { joiValidation } from '@global/decorators/joi-validation.decorators';
+import { deleteCourseSchema } from '@course/courseSchemes/course/deleteCourse.schema';
 
 // Admin user Activity
 export class DeleteCourse  {
+  @joiValidation(deleteCourseSchema)
   public static delete = catchAsyncHandler(async (req: Request, res: Response,next: NextFunction): Promise<void> => {
-     const { id } = req.params;
+     const { courseId } = req.params;
 
-     const course = await CourseModel.findById<ICourse>(id);
+
+     const course = await CourseModel.findById<ICourse>(courseId);
 
      if(!course){
         return next(new ErrorHandler('Course not Found!',HTTP_STATUS.NOT_FOUND));

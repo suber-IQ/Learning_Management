@@ -1,7 +1,7 @@
 import  mongoose, {  Schema,model } from 'mongoose';
 import { ICourse, CourseLevel } from '../courseInterface/courseInterface';
 import { UserRole } from '../../userManagement/userInterface/user.interface';
-import { AssignmentSchema, CodeSchema, NoteSchema, QuizSchema, SlideSchema, lessonSchema } from './other.model';
+import { lessonSchema } from './other.model';
 
 
 
@@ -68,11 +68,6 @@ const courseSchema = new Schema<ICourse>({
     type: Date,
     default: Date.now
    },
-   assignments: [AssignmentSchema],
-   notes: [NoteSchema],
-   codes: [CodeSchema],
-   quizzes: [QuizSchema],
-   slides: [SlideSchema],
    coupon: {
     code: {
       type: String,

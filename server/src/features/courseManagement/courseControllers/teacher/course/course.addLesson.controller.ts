@@ -6,7 +6,7 @@ import { videoUpload } from '@global/helpers/cloudinary-upload';
 import { deleteUploadedFile } from '@global/helpers/delete-upload-file';
 import CourseModel from '@course/courseModel/course.model';
 import ErrorHandler from '@global/helpers/error-handler';
-import { addLessonSchema } from '@course/courseSchemes/addLesson.schema';
+import { addLessonSchema } from '@course/courseSchemes/course/addLesson.schema';
 import { ICourse } from '@course/courseInterface/courseInterface';
 import { Types } from 'mongoose';
 
@@ -14,10 +14,10 @@ import { Types } from 'mongoose';
 export class AddLesson  {
   @joiValidation(addLessonSchema)
   public static create = catchAsyncHandler(async (req: Request, res: Response,next: NextFunction): Promise<void> => {
-    const { id } = req.params;
+    const { courseId } = req.params;
     const { title, description, duration } = req.body;
 
-    const course = await CourseModel.findById<ICourse>(id);
+    const course = await CourseModel.findById<ICourse>(courseId);
 
     if(!course){
        return next(new ErrorHandler('Course not Found!',HTTP_STATUS.NOT_FOUND));
@@ -45,7 +45,12 @@ export class AddLesson  {
     content: {
        public_id: lessonId,
        url: lessonUrl
-    }
+    },
+    assignments: [],
+    notes: [],
+    codes: [],
+    quizzes: [],
+    slides: [],
   });
 
   course.numberOflesson =  course.lessons.length;

@@ -3,7 +3,6 @@ import { Schema, Document } from 'mongoose';
 
 export enum UserRole {
      User = 'user',
-     Student ='student',
      Teacher = 'teacher',
      Admin = 'admin'
 }

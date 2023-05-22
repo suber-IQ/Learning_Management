@@ -19,6 +19,11 @@ export interface Lesson{
         public_id: string;
         url: string;
     };
+    assignments: Assignment[];
+    notes: Note[];
+    codes: Code[];
+    quizzes: Quiz[];
+    slides: Slide[];
 }
 
 export interface Subscription {
@@ -27,7 +32,7 @@ export interface Subscription {
 }
 
 export interface Assignment {
-    _id: string;
+   _id: string;
     title: string;
     description: string;
     deadline: Date;
@@ -36,9 +41,19 @@ export interface Assignment {
 
 }
 
-interface Note {
-    title: string;
-    content: string;
+export interface Note {
+  _id: string;
+  title: string;
+  content: string;
+  createdDate: Date;
+  modifiedDate?: Date;
+  tags: string[];  // meeting , important
+  attachments: Attachment[];
+}
+
+export interface Attachment {
+  file_public_id: string;
+  file_url: string;
 }
 
 export interface Code {
@@ -97,10 +112,6 @@ export interface ICourse extends Document {
     };
     createdBy: Types.ObjectId | IUser;
     createdAt: Date;
-    assignments: Assignment[];
-    notes: Note[];
-    codes: Code[];
-    quizzes: Quiz[];
-    slides: Slide[];
+
     coupon?: Coupon; // Optional coupon property
 }

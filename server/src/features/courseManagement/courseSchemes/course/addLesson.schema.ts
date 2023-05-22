@@ -1,6 +1,10 @@
 import Joi, { ObjectSchema} from 'joi';
 
 const addLessonSchema: ObjectSchema = Joi.object().keys({
+  courseId: Joi.string().trim().required().messages({
+    'any.required': 'Lesson ID is required',
+    'string.empty': 'Lesson ID cannot be empty',
+  }),
   title: Joi.string().min(3).max(30).required().messages({
     'string.base': 'Title must be of type string',
     'string.min': 'Title must be at least 3 characters',
