@@ -1,4 +1,4 @@
-import { Assignment, Lesson } from '@course/courseInterface/courseInterface';
+import { Assignment, Lesson, Question, QuizSubmission } from '@course/courseInterface/courseInterface';
 import { Schema } from 'mongoose';
 
 const AssignmentSchema = new Schema<Assignment>({
@@ -46,21 +46,39 @@ const NoteSchema = new Schema({
 });
 
 const CodeSchema = new Schema({
+  _id: Schema.Types.ObjectId,
   title: String,
   code: String,
   language: String
   // Add additional fields specific to code snippets
 });
 
+const QuestionSchema = new Schema<Question>({
+  text: String,
+  options: [String],
+  explanation: String,
+  answer: String,
+});
+
+const QuizSubmissionSchema = new Schema<QuizSubmission>({
+  studentId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  studentUsername: String,
+  submissionDate: Date,
+  correctQuestion: Number,
+  wrongQuestion: Number,
+  attempQuestion: Number,
+  comments: String,
+  grade: String,
+});
+
 const QuizSchema = new Schema({
-  title: String,
-  questions: [
-    {
-      text: String,
-      options: [String],
-      correctOption: Number,
-    },
-  ],
+ title: String,
+ questions: [QuestionSchema],
+ submissions: [QuizSubmissionSchema],
+ totalOfStudentSubmission: Number
   // Add additional fields specific to quizzes
 });
 
@@ -82,7 +100,7 @@ const lessonSchema = new Schema<Lesson>({
   assignments: [AssignmentSchema],
   notes: [NoteSchema],
   codes: [CodeSchema],
-  quizzes: [QuizSchema],
+  quizzes: QuizSchema,
   slides: [SlideSchema],
 });
 

@@ -38,7 +38,6 @@ export interface Assignment {
     deadline: Date;
     submissions?: AssignmentSubmission[]
     totalOfStudentSubmission?: number;
-
 }
 
 export interface Note {
@@ -57,6 +56,7 @@ export interface Attachment {
 }
 
 export interface Code {
+   _id: string;
     title: string;
     language: string;
     code: string;
@@ -64,12 +64,25 @@ export interface Code {
 
 export interface Quiz {
     title: string;
-    questions: Question[]
+    questions: Question[],
+    submissions?: QuizSubmission[]
+    totalOfStudentSubmission?: number;
 }
-interface Question {
+export interface Question {
     text: string;
     options: string[];
-    correctOption: number;
+    explanation: string;
+    answer: string;
+}
+export interface QuizSubmission{
+  studentId: Types.ObjectId;
+  studentUsername: string;
+  submissionDate: Date
+  correctQuestion: number;
+  wrongQuestion: number;
+  attempQuestion: number;
+  comments?: string;
+  grade?: number;
 }
 
 export interface AssignmentSubmission{
@@ -85,6 +98,7 @@ export interface AssignmentSubmission{
 }
 
 interface Slide {
+    _id: string;
     title: string;
     content: string;
 }
