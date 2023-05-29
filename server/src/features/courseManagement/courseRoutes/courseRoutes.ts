@@ -12,6 +12,15 @@ import { DeleteAssignment } from '@course/courseControllers/teacher/document/ass
 import { CreateNote } from './../courseControllers/teacher/document/notes/course.create.note.controller';
 import { UpdateNote } from '@course/courseControllers/teacher/document/notes/course.update.note.controller';
 import { DeleteNote } from '@course/courseControllers/teacher/document/notes/course.delete.note.controller';
+import { CreateCodeSnippet } from '@course/courseControllers/teacher/document/codes/course.create.code.snippet.conrollter';
+import { UpdateCodeSnippet } from '@course/courseControllers/teacher/document/codes/course.update.code.snippet.controller';
+import { DeleteCodeSnippet } from '@course/courseControllers/teacher/document/codes/course.delete.code.snippet.controller';
+import { CreateSlide } from '@course/courseControllers/teacher/document/slides/course.create.slide.controller';
+import { UpdateSlide } from '@course/courseControllers/teacher/document/slides/course.update.slide.controller';
+import { DeleteSlide } from '@course/courseControllers/teacher/document/slides/course.delete.slide.controller';
+import { CreateQuiz } from '@course/courseControllers/teacher/document/quizes/course.create.quize.controller';
+import { UpdateQuiz } from '@course/courseControllers/teacher/document/quizes/course.update.quize.controller';
+import { DeleteQuiz } from '@course/courseControllers/teacher/document/quizes/course.delete.quize.controller';
 
 
 class CourseRoutes {
@@ -44,10 +53,25 @@ class CourseRoutes {
     this.router.put('/course/lesson/update/assignment/:courseId/:lessonId/:assignmentId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), UpdateAssignment.update);
     this.router.delete('/course/lesson/delete/assignment/:courseId/:lessonId/:assignmentId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), DeleteAssignment.delete);
 
-    // Assignment (create, update, delete) folder:-features/courseManagement/courseController/teacher/document/notes
+    // note (create, update, delete) folder:-features/courseManagement/courseController/teacher/document/notes
     this.router.post('/course/lesson/create/note/:courseId/:lessonId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), CreateNote.create);
     this.router.put('/course/lesson/update/note/:courseId/:lessonId/:noteId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), UpdateNote.update);
     this.router.delete('/course/lesson/delete/note/:courseId/:lessonId/:noteId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), DeleteNote.delete);
+
+    // Quiz (create, update, delete) folder:-features/courseManagement/courseController/teacher/document/Quizes
+    this.router.post('/course/lesson/create/quiz/:courseId/:lessonId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), CreateQuiz.create);
+    this.router.put('/course/lesson/update/quiz/:courseId/:lessonId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), UpdateQuiz.update);
+    this.router.delete('/course/lesson/delete/quiz/:courseId/:lessonId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), DeleteQuiz.delete);
+
+    // code (create, update, delete) folder:-features/courseManagement/courseController/teacher/document/codes
+    this.router.post('/course/lesson/create/code/:courseId/:lessonId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), CreateCodeSnippet.create);
+    this.router.put('/course/lesson/update/code/:courseId/:lessonId/:codeSnippetId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), UpdateCodeSnippet.update);
+    this.router.delete('/course/lesson/delete/code/:courseId/:lessonId/:codeSnippetId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), DeleteCodeSnippet.delete);
+
+    // Slide (create, update, delete) folder:-features/courseManagement/courseController/teacher/document/slides
+    this.router.post('/course/lesson/create/slide/:courseId/:lessonId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), CreateSlide.create);
+    this.router.put('/course/lesson/update/slide/:courseId/:lessonId/:slideId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), UpdateSlide.update);
+    this.router.delete('/course/lesson/delete/slide/:courseId/:lessonId/:slideId',AuthMiddleware.isAuthenticateUser,AuthMiddleware.authorizeRoles(UserRole.Teacher), DeleteSlide.delete);
 
 
   }

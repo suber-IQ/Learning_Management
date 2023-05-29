@@ -2,19 +2,19 @@ import Joi, { ObjectSchema} from 'joi';
 
 const deleteCodeSnippetSchema: ObjectSchema = Joi.object().keys({
   courseId: Joi.string().trim().required().messages({
-    'string.base': 'Course ID must be string',
     'any.required': 'Course ID is required.',
-    'string.empty': 'Course ID cannot be empty.',
+    'string.empty': 'Course ID must not be empty.',
+    'string.base': 'Course ID must be a string',
   }),
   lessonId: Joi.string().trim().required().messages({
-    'string.base': 'Lecture ID must be string',
-    'any.required': 'Lecture ID is required.',
-    'string.empty': 'Lecture ID cannot be empty.',
+    'any.required': 'Lesson ID is required.',
+    'string.empty': 'Lesson ID must not be empty.',
+    'string.base': 'Lesson ID must be a string',
   }),
   codeSnippetId: Joi.string().trim().required().messages({
-    'string.base': 'Assignment ID must be string',
-    'any.required': 'Assignment ID is required.',
-    'string.empty': 'Assignment ID cannot be empty.',
+    'any.required': 'CodeSnippet ID is required.',
+    'string.empty': 'CodeSnippet ID must not be empty.',
+    'string.base': 'CodeSnippet ID must be a string.',
   }),
 });
 

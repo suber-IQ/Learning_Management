@@ -5,12 +5,12 @@ import { joiValidation } from '@global/decorators/joi-validation.decorators';
 import CourseModel from '@course/courseModel/course.model';
 import { AuthRequest } from '@user/userInterface/user.interface';
 import ErrorHandler from '@global/helpers/error-handler';
-import { createCodeSnippetSchema } from '@course/courseSchemes/document/codes/create.code.snippet.schema';
+import { deleteQuizSchema } from '@course/courseSchemes/document/quizes/delete.quiz.schema';
 
 // Admin user Activity
 export class DeleteQuiz  {
-  @joiValidation(createCodeSnippetSchema)
-  public static Delete = catchAsyncHandler(async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  @joiValidation(deleteQuizSchema)
+  public static delete = catchAsyncHandler(async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
     const { courseId, lessonId } = req.params;
 
 

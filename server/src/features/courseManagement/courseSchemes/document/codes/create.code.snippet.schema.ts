@@ -14,12 +14,14 @@ const createCodeSnippetSchema: ObjectSchema = Joi.object().keys({
     'string.empty': 'Code must not be empty.',
   }),
   courseId: Joi.string().trim().required().messages({
-    'any.required': 'Course ID is required',
-    'string.empty': 'Course ID cannot be empty',
+    'any.required': 'Course ID is required.',
+    'string.empty': 'Course ID must not be empty.',
+    'string.base': 'Course ID must be a string',
   }),
   lessonId: Joi.string().trim().required().messages({
-    'any.required': 'Lesson ID is required',
-    'string.empty': 'Lesson ID cannot be empty',
+    'any.required': 'Lesson ID is required.',
+    'string.empty': 'Lesson ID must not be empty.',
+    'string.base': 'Lesson ID must be a string',
   }),
 
 });

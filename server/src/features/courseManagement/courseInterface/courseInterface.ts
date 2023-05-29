@@ -97,10 +97,13 @@ export interface AssignmentSubmission{
     grade?: number;
 }
 
-interface Slide {
+export interface Slide {
     _id: string;
     title: string;
-    content: string;
+    file: {
+      public_id: string;
+      url: string;
+    }
 }
 
 interface Coupon {

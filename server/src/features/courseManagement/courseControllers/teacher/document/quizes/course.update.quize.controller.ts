@@ -6,11 +6,11 @@ import CourseModel from '@course/courseModel/course.model';
 import { AuthRequest } from '@user/userInterface/user.interface';
 import ErrorHandler from '@global/helpers/error-handler';
 import {  Question, Quiz } from '@course/courseInterface/courseInterface';
-import { createCodeSnippetSchema } from '@course/courseSchemes/document/codes/create.code.snippet.schema';
+import { updateQuizSchema } from '@course/courseSchemes/document/quizes/update.quiz.schema';
 
 // Admin user Activity
 export class UpdateQuiz  {
-  @joiValidation(createCodeSnippetSchema)
+  @joiValidation(updateQuizSchema)
   public static update = catchAsyncHandler(async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
     const { courseId, lessonId } = req.params;
     const { title, question, optionA,optionB,optionC,optionD,explanation,answer} = req.body;

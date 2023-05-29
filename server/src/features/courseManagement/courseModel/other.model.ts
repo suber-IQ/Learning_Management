@@ -1,4 +1,4 @@
-import { Assignment, Lesson, Question, QuizSubmission } from '@course/courseInterface/courseInterface';
+import { Assignment, Lesson, Question, QuizSubmission, Slide } from '@course/courseInterface/courseInterface';
 import { Schema } from 'mongoose';
 
 const AssignmentSchema = new Schema<Assignment>({
@@ -82,9 +82,13 @@ const QuizSchema = new Schema({
   // Add additional fields specific to quizzes
 });
 
-const SlideSchema = new Schema({
+const SlideSchema = new Schema<Slide>({
+  _id: Schema.Types.ObjectId,
   title: String,
-  content: String
+  file: {
+    public_id: String,
+    url: String,
+  },
   // Add additional fields specific to slides
 });
 
