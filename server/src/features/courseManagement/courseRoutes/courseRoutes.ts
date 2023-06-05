@@ -9,7 +9,6 @@ import { DeleteLesson } from '@course/courseControllers/teacher/course/course.de
 import { CreateAssignment } from '@course/courseControllers/teacher/document/assignments/course.create.assignment.controller';
 import { UpdateAssignment } from '@course/courseControllers/teacher/document/assignments/course.update.assignment.controller';
 import { DeleteAssignment } from '@course/courseControllers/teacher/document/assignments/course.delete.assignment.controller';
-import { CreateNote } from './../courseControllers/teacher/document/notes/course.create.note.controller';
 import { UpdateNote } from '@course/courseControllers/teacher/document/notes/course.update.note.controller';
 import { DeleteNote } from '@course/courseControllers/teacher/document/notes/course.delete.note.controller';
 import { CreateCodeSnippet } from '@course/courseControllers/teacher/document/codes/course.create.code.snippet.conrollter';
@@ -21,6 +20,9 @@ import { DeleteSlide } from '@course/courseControllers/teacher/document/slides/c
 import { CreateQuiz } from '@course/courseControllers/teacher/document/quizes/course.create.quize.controller';
 import { UpdateQuiz } from '@course/courseControllers/teacher/document/quizes/course.update.quize.controller';
 import { DeleteQuiz } from '@course/courseControllers/teacher/document/quizes/course.delete.quize.controller';
+import { CreateNote } from '@course/courseControllers/teacher/document/notes/course.create.note.controller';
+import { GetAllCourse } from '@course/courseControllers/student/course/course.get.all.controller';
+import { GetCourseLessons } from '@course/courseControllers/student/course/course.get.lessons.controller';
 
 
 class CourseRoutes {
@@ -39,6 +41,10 @@ class CourseRoutes {
  private Student(): void {
   // Assignment submission folder:-features/courseManagement/courseController/student
   // this.router.put('/course/assignment/submit/:courseId/:assignmentId',AuthMiddleware.isAuthenticateUser, SubmitAssignment.update);
+  this.router.get('/courses',GetAllCourse.get);
+  // 👉 get all lessons from course PENDING AuthorizeSubscribers
+  this.router.get('/course/lessons/:courseId',GetCourseLessons.get)
+
  }
 
   private teacherRoutes(): void {

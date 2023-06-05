@@ -15,6 +15,7 @@ export default () => {
         log.error('Error connecting to database', error);
         return process.exit(1);
       });
+      
   };
   connect();
 

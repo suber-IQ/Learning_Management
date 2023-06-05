@@ -33,6 +33,10 @@ const courseSchema = new Schema<ICourse>({
     enum: Object.values(UserRole),
     default: UserRole.User
   },
+  views: {
+    type: Number,
+    default: 0
+  },
   enrolledStudents: {
     type: Number,
     default: 0

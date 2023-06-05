@@ -24,7 +24,7 @@ class Config {
   public STRIPE_API_KEY: string | undefined;
   public EC2_URL: string | undefined;
 
-  private readonly DEFAULT_DATABASE_URL = 'mongodb://localhost:27017/EcommerceApp';
+  private readonly DEFAULT_DATABASE_URL = 'mongodb://localhost:27017/learnmanagement';
   private readonly DEFAULT_NODE_ENV = 'development';
   private readonly DEFAULT_PORT = 8000;
   private readonly DEFAULT_CLIENT_URL = 'http://localhost:5173';
